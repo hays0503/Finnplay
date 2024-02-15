@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@400&display=swap");
+@font-face {
+  font-family: "Helvetica Now Text ";
+  src: url("/public/HelveticaNowText-Regular.ttf");
+  font-weight: 400;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* Это уберет полосу прокрутки на уровне всей страницы */
+}
+
+body {
+  margin: 0;
+  line-height: normal;
+}
+:root {
+  /* fonts */
+  --font-prompt: Prompt;
+  --font-commissioner: Commissioner;
+  --body-small-regular: "Helvetica Now Text ";
+
+  /* font sizes */
+  --body-regular-large-size: 16px;
+  --body-small-regular-size: 12px;
+  --body-regular-xlarge-size: 18px;
+
+  /* Colors */
+  --blacks-25: #fdfdfd;
+  --blacks-semi: #808080;
+  --blacks-dark: #2b2b2b;
+  --color-gray-100: rgba(43, 43, 43, 0.7);
+  --palette-yellow: #fdbc11;
+  --blacks-light: #fff;
+  --blacks-50: #f2f2f2;
+  --color-gainsboro: #e6e6e6;
+  --tech-error: #ec4466;
+  --color-darkgoldenrod: #c98a00;
+  --tech-links: #3f53be;
+
+  /* Gaps */
+  --gap-21xl: 40px;
+  --gap-xl: 20px;
+  --gap-base: 16px;
+  --gap-11xs: 2px;
+  --gap-xs: 12px;
+  --gap-56xl: 75px;
+  --gap-23xl: 42px;
+  --gap-3xs: 10px;
+  --gap-mini: 15px;
+  --gap-4xs: 9px;
+  --gap-22xl: 41px;
+  --gap-5xs: 8px;
+  --gap-13xl: 32px;
+  --gap-5xl: 24px;
+  --gap-12xl: 31px;
+
+  /* Paddings */
+  --padding-312xl: 331px;
+  --padding-xl: 20px;
+  --padding-5xl: 24px;
+  --padding-mid: 17px;
+  --padding-mini: 15px;
+  --padding-37xl: 56px;
+  --padding-13xl: 32px;
+  --padding-12xl: 31px;
+  --padding-2xl: 21px;
+  --padding-2xs: 11px;
+  --padding-xs: 12px;
+  --padding-12xs: 1px;
+  --padding-3xs: 10px;
+  --padding-8xs: 5px;
+  --padding-smi: 13px;
+  --padding-5xs: 8px;
+  --padding-6xs: 7px;
+  --padding-4xs: 9px;
+  --padding-263xl: 282px;
+  --padding-9xs: 4px;
+
+  /* Border radiuses */
+  --br-9xs: 4px;
+  --br-5xs: 8px;
+  --br-31xl: 50px;
+
+  /* Effects */
+  --shadows-main: 0px -2px 18px rgba(128, 128, 128, 0.1);
+  --shadows-hover: 0px 0px 4px rgba(128, 128, 128, 0.06);
+}

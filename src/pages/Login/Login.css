@@ -1,0 +1,13 @@
+.login {
+  width: 100%;
+  height: auto;
+  position: relative;
+  background-color: var(--blacks-25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 22vh var(--padding-xl);
+  box-sizing: border-box;
+}
