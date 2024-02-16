@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useState, useRef } from "react";
 import PasswordInput from "./PasswordInput"
 import "./LoginForm.css";
 import "./Loader.css";
@@ -8,23 +8,51 @@ const LoginForm = memo(() => {
 
   const [loading, setLoading] = useState(false);
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const Login = useRef('');
+  const Password = useRef('');
 
 
-  const handleLogin = (e) => {
+
+  const handleLogin = async (e) => {
+    const login = Login.current.value;
+    const password = Password.current;
+
+
     e.preventDefault(); // Предотвращение обычной отправки формы
     // Запустить анимацию загрузки
     setLoading(true);
 
-    // Здесь должен быть ваш асинхронный запрос к API или другой код
-    // Для демонстрации, мы просто остановим загрузку через 2 секунды
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+
+    try {
+      const response = await fetch('http://192.168.0.34:3000/login', {
+        method: 'POST', // Метод запроса
+        headers: {
+          'Content-Type': 'application/json', // Тип содержимого, который мы отправляем
+        },
+        body: JSON.stringify({
+          "username": login,
+          "password": password
+        }), // Преобразуем данные в строку JSON
+      });
+
+      const data = await response.json(); // Парсинг JSON ответа в объект JavaScript
+
+      if (response.ok && data.auth) {
+        console.log('Авторизация успешна. Токен:', data.token);
+        localStorage.setItem('authToken', data.token);
+        alert('Авторизация успешна!'); // Уведомление об успешной авторизации
+        
+      } else {
+        console.error('Ошибка аутентификации:', data.message);
+        alert('Ошибка аутентификации: ' + data.message); // Уведомление об ошибке аутентификации
+      }
+
+    } catch (error) {
+      console.error('Ошибка при выполнении запроса:', error);
+      alert('Произошла ошибка при выполнении запроса.'); // Уведомление о проблеме с запросом
+    } finally {
+      setLoading(false); // Остановить анимацию загрузки в любом случае
+    }
   };
 
 
@@ -49,11 +77,12 @@ const LoginForm = memo(() => {
                 className="sample-text"
                 placeholder="player"
                 type="text"
+                ref={Login}
               />
             </div>
           </div>
         </div>
-        <PasswordInput LockSymbol='*'/>        
+        <PasswordInput LockSymbol='*' Password={Password} />
       </div>
       <button className="button button-loader" type="submit" disabled={loading}>
         {loading ? (

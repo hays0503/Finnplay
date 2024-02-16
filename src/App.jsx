@@ -1,4 +1,5 @@
 import Login from "@pages/Login/Login";
+// import UserGameList from "@pages/UserGame/UserGameList"
 import {
   Routes,
   Route,
@@ -9,7 +10,8 @@ import {
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />      
+      <Route path="/" element={<Login />} />
+      {/* <Route path="/listgame" element={<UserGameList/>} />       */}
     </Routes>
   );
 }

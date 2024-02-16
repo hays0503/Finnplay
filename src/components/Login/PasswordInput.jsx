@@ -12,13 +12,16 @@ import "./PasswordInput.css";
  * @param {string} props.LockSymbol - Символ, используемый для представления скрытых символов пароля.
  * @returns {JSX.Element} Компонент PasswordInput.
  */
-const PasswordInput = ({ LockSymbol }) => {
+const PasswordInput = ({ LockSymbol,Password }) => {
     const [inputType, setInputType] = useState(false); // Состояние для отслеживания типа ввода (скрыт/показан)
-    const [password, setPassword] = useState(''); // Состояние для хранения реального пароля
+    const [password, setTruePassword] = useState(''); // Состояние для хранения реального пароля
     const [fakePassword, setFakePassword] = useState(''); // Состояние для хранения поддельного пароля (замаскированного)
     let cursorPosition = useRef([]); // Ссылка для хранения текущей позиции курсора
 
-
+    const setPassword = (value) =>{
+        Password.current = value;
+        setTruePassword(value);
+    } 
 
     /**
      * Функция для удаления символов из строки
