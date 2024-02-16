@@ -8,6 +8,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 22vh var(--padding-xl);
+  padding: 20vh var(--padding-xs);
   box-sizing: border-box;
 }

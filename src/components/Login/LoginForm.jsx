@@ -53,18 +53,7 @@ const LoginForm = memo(() => {
             </div>
           </div>
         </div>
-        {/* <div className="input">
-          <div className="inputs-text-field">
-            <input
-              className="text-field-content"
-              placeholder="Password"
-              type={showPassword ? "text" : "password"} // Тип изменяется в зависимости от состояния
-            />
-            <img onClick={togglePasswordVisibility} src={showPassword ? "/lock.svg" : "/icons--showpassword.svg"} />
-
-          </div>
-        </div> */}
-        <PasswordInput/>
+        <PasswordInput LockSymbol='*'/>        
       </div>
       <button className="button button-loader" type="submit" disabled={loading}>
         {loading ? (
