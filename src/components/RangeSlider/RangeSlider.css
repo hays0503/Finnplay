@@ -1,0 +1,95 @@
+.__range input {
+  outline: none;
+  -webkit-appearance: none; /* Убирает стандартный дизайн для Chrome и Safari */
+  appearance: none;
+  height: 8px;
+  width: 100%;
+  margin: 10px auto;
+  z-index: 2;
+}
+
+input[type="range"] {
+  color: #f07167;
+  accent-color: var(--palette-yellow); /* Используется в новых версиях браузеров */
+}
+
+input[type="range"]:active {
+  cursor: grabbing;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Убираем стандартный стиль */
+  appearance: none;
+  background-color: var(--palette-yellow); /* Указываем цвет фона */
+  height: 16px; /* Высота ползунка */
+  width: 16px; /* Ширина ползунка */
+  border-radius: 50%; /* Делаем ползунок круглым */
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: #f2f2f2; /* Цвет дорожки */
+  height: 8px; /* Высота дорожки */
+}
+
+/* Стили для Firefox */
+input[type="range"]::-moz-range-thumb {
+  background-color: var(--palette-yellow);
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-progress {
+  background-color: var(--palette-yellow);
+  height: 8px;
+}
+
+input[type="range"]::-moz-range-track {
+  background-color: #f2f2f2;
+  height: 8px;
+}
+
+/* Стили для IE */
+input[type="range"]::-ms-thumb {
+  background-color: var(--palette-yellow);
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+}
+
+input[type="range"]::-ms-fill-lower {
+  background-color: var(--palette-yellow);
+}
+
+input[type="range"]::-ms-fill-upper {
+  background-color: #f2f2f2;
+}
+
+.__range-step datalist {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  bottom: 16px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.point {
+  border-radius: 100%;
+  width: 20px;
+  height: 16px;
+  text-align: center;
+  z-index: 1;
+}
+
+.datalist{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  user-select: none;
+}

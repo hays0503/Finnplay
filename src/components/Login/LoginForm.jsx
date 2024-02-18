@@ -24,7 +24,7 @@ const LoginForm = memo(() => {
 
 
     try {
-      const response = await fetch('http://192.168.0.34:3000/login', {
+      const response = await fetch('http://127.0.0.1:3000/login', {
         method: 'POST', // Метод запроса
         headers: {
           'Content-Type': 'application/json', // Тип содержимого, который мы отправляем

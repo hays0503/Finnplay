@@ -1,5 +1,5 @@
 import Login from "@pages/Login/Login";
-// import UserGameList from "@pages/UserGame/UserGameList"
+import UserGameList from "@pages/UserGame/UserGameList"
 import {
   Routes,
   Route,
@@ -11,7 +11,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      {/* <Route path="/listgame" element={<UserGameList/>} />       */}
+      <Route path="/listgame" element={<UserGameList/>} />
     </Routes>
   );
 }
