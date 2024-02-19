@@ -38,7 +38,6 @@ const LoginForm = memo(() => {
       const data = await response.json(); // Парсинг JSON ответа в объект JavaScript
 
       if (response.ok && data.auth) {
-        console.log('Авторизация успешна. Токен:', data.token);
         localStorage.setItem('authToken', data.token);
         alert('Авторизация успешна!'); // Уведомление об успешной авторизации
         

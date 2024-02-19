@@ -6,35 +6,49 @@ const RangeSlider = ({ GameListContext }) => {
   const dto = useContext(GameListContext)
 
   const getOptionStyle = (optionValue) => ({
-    backgroundColor: value >= optionValue.toString() ? 'var(--palette-yellow)' : '#f2f2f2',
+    backgroundColor: value >= optionValue.toString() ? 'var(--palette-yellow)' : 'gray',
   });
 
   const setColumnStyle = (optionValue) => {
-    setTimeout(() => {
+    // setTimeout(() => {
       dto.Row.setRow(optionValue);
-    }, 500);
+    // }, 1000);
     setValue(optionValue)
   }
 
   return (
-    <div className="__range __range-step">
-      <input
-        type="range"
-        value={value}
-        max="4"
-        min="2"
-        step="1"
-        list='range1'
-        id="radius"
-        onChange={(e) => setColumnStyle(e.target.value)}
-      />
-      <datalist className='datalist' id="range1">
-        <option className='point' value="2" style={getOptionStyle(2)}>2</option>
-        <option className='point' value="3" style={getOptionStyle(3)}>3</option>
-        <option className='point' value="4" style={getOptionStyle(4)}>4</option>
-      </datalist>
-
-    </div>
+      <div className="range-slider" style={{display:'contents'}}>
+        <div className="range">
+          <div className="range">
+            <input
+              id="range1"
+              type="range"
+              min="2"
+              max="4"
+              step="1"
+              value={value}
+              onChange={(e) => setColumnStyle(e.target.value)}
+            />
+            <div className="range-ticks">
+              <span className="range-tick" id="2">
+                <span style={getOptionStyle(2)} className="range-tick-text">
+                  2
+                </span>
+              </span>
+              <span className="range-tick" id="3">
+                <span style={getOptionStyle(3)} className="range-tick-text">
+                  3
+                </span>
+              </span>
+              <span className="range-tick" id="4">
+                <span style={getOptionStyle(4)} className="range-tick-text">
+                  4
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
   );
 };
 

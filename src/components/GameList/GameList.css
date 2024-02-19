@@ -1,6 +1,21 @@
-.game-thumbnail{
+.game-thumbnail-small{
   height: 141px;
   width: 196px;
+  position: relative;
+  border-radius: var(--br-5xs);
+  object-fit: cover;
+}
+.game-thumbnail-medium{
+  height: 191px;
+  width: 268px;
+  position: relative;
+  border-radius: var(--br-5xs);
+  object-fit: cover;
+}
+
+.game-thumbnail-large{
+  height: 241px;
+  width: 340px;
   position: relative;
   border-radius: var(--br-5xs);
   object-fit: cover;
@@ -19,7 +34,7 @@
 .filters-frame,
 .usergame-list-group-selected {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   box-sizing: border-box;
 }
 .filters-frame {

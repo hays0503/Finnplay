@@ -31,8 +31,9 @@
 .text-field-content {
   flex: 1;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  align-content: flex-start;
 }
 .games {
   flex-direction: row;

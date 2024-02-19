@@ -1,95 +1,95 @@
-.__range input {
-  outline: none;
-  -webkit-appearance: none; /* Убирает стандартный дизайн для Chrome и Safari */
-  appearance: none;
-  height: 8px;
+
+.range-slider * {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  
+}
+
+.range-slider,
+.range-ticks,
+.label-range {
+  display: flex;
+}
+
+.range-slider {
+  flex-flow: column nowrap;
+  margin: 0 auto;
+  max-width: 18em;
+  padding: 0 1.5em 1.5em 1.5em;
+  font-size: calc(20px + (20) * (100vw) / (2000));
+  box-sizing: border-box;
+}
+
+.range-slider input[type="range"],
+.range {
+  border-radius: 0.75em;
+  overflow: hidden;
+  position: relative;
+  height: 1.5em;
+  accent-color: #fdbc11;
+}
+
+.range-slider input[type="range"] {
+  background-color: transparent;
+  font: 1em/1.5 "Roboto", sans-serif;
+  display: block;
+  padding: 0 0.1em;
   width: 100%;
-  margin: 10px auto;
-  z-index: 2;
+  height: 100%;
 }
 
-input[type="range"] {
-  color: #f07167;
-  accent-color: var(--palette-yellow); /* Используется в новых версиях браузеров */
+.range-slider input[type="range"]:focus {
+  outline: transparent;
 }
 
-input[type="range"]:active {
+.range-slider input[type="range"]:active {
   cursor: grabbing;
 }
 
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Убираем стандартный стиль */
-  appearance: none;
-  background-color: var(--palette-yellow); /* Указываем цвет фона */
-  height: 16px; /* Высота ползунка */
-  width: 16px; /* Ширина ползунка */
-  border-radius: 50%; /* Делаем ползунок круглым */
-}
-
-input[type="range"]::-webkit-slider-runnable-track {
-  background-color: #f2f2f2; /* Цвет дорожки */
-  height: 8px; /* Высота дорожки */
-}
-
-/* Стили для Firefox */
-input[type="range"]::-moz-range-thumb {
-  background-color: var(--palette-yellow);
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-}
-
-input[type="range"]::-moz-range-progress {
-  background-color: var(--palette-yellow);
-  height: 8px;
-}
-
-input[type="range"]::-moz-range-track {
-  background-color: #f2f2f2;
-  height: 8px;
-}
-
-/* Стили для IE */
-input[type="range"]::-ms-thumb {
-  background-color: var(--palette-yellow);
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-}
-
-input[type="range"]::-ms-fill-lower {
-  background-color: var(--palette-yellow);
-}
-
-input[type="range"]::-ms-fill-upper {
-  background-color: #f2f2f2;
-}
-
-.__range-step datalist {
-  position: relative;
-  display: flex;
+.range-ticks {
+  font: 1em/1.5 "Roboto", sans-serif;
   justify-content: space-between;
-  height: auto;
-  bottom: 16px;
+  align-items: center;
   pointer-events: none;
-  user-select: none;
-}
-
-.point {
-  border-radius: 100%;
-  width: 20px;
-  height: 16px;
-  text-align: center;
-  z-index: 1;
-}
-
-.datalist{
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
+  top: 0.04em;
+  left: 0.55em;
+  width: calc(100% - 1.1em);
+  height: 100%;
+}
+
+.range-tick,
+.range-tick-text {
+  background: #3b3b3b;
+  color: #ededed;
+  border-radius: 100%;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+}
+
+.range-tick {
+  color: #4e4e4e;
+  font-size: 0.5em;
+  text-align: center;
+  width: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 }
+
+.range-tick-text {
+  transform: translateX(-50%);
+}
+
+.label-range {
+  font: 0.8em/1.5 "Roboto", sans-serif;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.active {
+  background: #fdbc11;
+}
+

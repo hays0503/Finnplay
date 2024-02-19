@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo,useContext, useEffect, useId } from "react";
 import RangeSlider from "@components/RangeSlider/RangeSlider";
 import "./Filters.css"; // Используем CSS модули для локализации стилей
 
@@ -11,11 +11,37 @@ const ProviderFrame = ({ title, children }) => (
   </div>
 );
 
-const Filters = memo(({GameListContext,List}) => {
-  console.log(List)
+const Filters = memo(({ GameListContext, List }) => {
   const { providers, groups } = List;
   const sortingOptions = ["A-Z", "Z-A", "Newest"];
-  console.log(providers,groups,sortingOptions)
+
+  const dto = useContext(GameListContext);
+
+  const toggle = (event,id,getData,setData) => {
+    //Удаляем или добавляем
+    if(event.target.checked){
+      //Добавляем
+      setData([...getData,id]);
+    }else{
+      //удаляем
+      const arr = getData.filter(item => item !== id);
+      setData(arr);
+    }
+  }
+
+  const toggleGroup = (event,id) => {
+    toggle(event,id,dto.Group.getGroup,dto.Group.setGroup);
+  }
+
+  const toggleProvider = (event,id) => {
+    toggle(event,id,dto.Provider.getProvider,dto.Provider.setProvider);
+  }
+
+  const toggleSortingOptions = (event,id) => {
+    toggle(event,id,dto.sortingOptions.getSortingOptions,dto.sortingOptions.setSortingOptions);
+  }
+
+
 
   return (
     <div className="filters">
@@ -26,34 +52,37 @@ const Filters = memo(({GameListContext,List}) => {
         </div>
       </div>
       <ProviderFrame title="Providers">
-        {providers.map((provider) => (
-          <label key={provider.id} className="checkbox-as-button">
-            <input type="checkbox" className="checkbox-as-button__input" />
-            <span className="providers checkbox-as-button__label">{provider.name}</span>
-          </label>
-        ))}
+        {providers.map((provider,index) => {
+          // console.log(provider.id)
+          return (
+            <label key={useId()} className="checkbox-as-button">
+              <input type="checkbox" onChange={(event) => toggleProvider(event,provider.id)} className="checkbox-as-button__input" />
+              <span className="providers checkbox-as-button__label">{provider.name}</span>
+            </label>
+          )
+        })}
       </ProviderFrame>
 
       <ProviderFrame title="Game groups">
-        {groups.map((group) => (
-          <label key={group.id} className="checkbox-as-button">
-            <input type="checkbox" className="checkbox-as-button__input" />
+        {groups.map((group,index) => (
+          <label key={useId()} className="checkbox-as-button">
+            <input type="checkbox" onChange={(event)=>toggleGroup(event,group.id)} className="checkbox-as-button__input" />
             <span className="providers checkbox-as-button__label">{group.name}</span>
           </label>
 
         ))}
       </ProviderFrame>
 
-      <ProviderFrame title="Game groups">
-        {sortingOptions.map((option) => (
-          <label key={option} className="checkbox-as-button">
-            <input type="checkbox" className="checkbox-as-button__input" />
+      <ProviderFrame title="Sorting">
+        {sortingOptions.map((option,index) => (
+          <label key={useId()} className="checkbox-as-button">
+            <input type="checkbox" onChange={(event)=>toggleSortingOptions(event,option)} className="checkbox-as-button__input" />
             <span className="providers checkbox-as-button__label">{option}</span>
           </label>
         ))}
       </ProviderFrame>
-      
-      <div style={{width: '100%'}}><RangeSlider GameListContext={GameListContext}/></div>
+
+      <div style={{ width: '100%' }}><RangeSlider GameListContext={GameListContext} /></div>
 
       <div className="sectionBottom">
         <span>Games amount: 3800</span>

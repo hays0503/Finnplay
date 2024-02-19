@@ -13,14 +13,31 @@ const UserGameList = () => {
 
   const [getRow, setRow] = useState(4);
 
+  const [getGroup, setGroup] = useState([]);
 
+  const [getProvider, setProvider] = useState([]);
+
+  const [getSortingOptions, setSortingOptions] = useState([]);
 
   //Объект для передачи данных между компонентами
   const dto = {
     Row:{
       getRow,
       setRow
+    },
+    Group:{
+      getGroup,
+      setGroup
+    },
+    Provider:{
+      getProvider,
+      setProvider
+    },
+    sortingOptions:{
+      getSortingOptions,
+      setSortingOptions
     }
+
   }
 
 
@@ -45,7 +62,6 @@ const UserGameList = () => {
         throw new Error('Ошибка аутентификации');
       }
       //Устанавливаем список игр
-      console.log("USE EFFECT",data);
       SetObjUserGameList(data.gamelist);
     }).catch((e) => {
       alert(e);
