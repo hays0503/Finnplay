@@ -41,13 +41,17 @@ const Filters = memo(({ GameListContext, List }) => {
     toggle(event,id,dto.sortingOptions.getSortingOptions,dto.sortingOptions.setSortingOptions);
   }
 
+  const setSearch = (event) => {
+    dto.Search.setSearch(event.target.value);
+  }
+
 
 
   return (
     <div className="filters">
       <div className="input">
         <div className="inputs-text-field">
-          <input className="text-field-content" placeholder="Search" type="text" />
+          <input className="text-field-content" onChange={(event)=>setSearch(event)} placeholder="Search" type="text" />
           <img className="searchIcon" alt="" src="/icons--search-16px.svg" />
         </div>
       </div>

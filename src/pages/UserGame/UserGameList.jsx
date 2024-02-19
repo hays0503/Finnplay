@@ -19,6 +19,8 @@ const UserGameList = () => {
 
   const [getSortingOptions, setSortingOptions] = useState([]);
 
+  const [getSearch, setSearch] = useState("");
+
   //Объект для передачи данных между компонентами
   const dto = {
     Row:{
@@ -36,6 +38,10 @@ const UserGameList = () => {
     sortingOptions:{
       getSortingOptions,
       setSortingOptions
+    },
+    Search:{
+      getSearch,
+      setSearch
     }
 
   }
