@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useContext} from "react";
 import PropTypes from "prop-types";
 import RangeSlider from "@components/RangeSlider/RangeSlider";
+import { useNavigate } from "react-router-dom";
 import "./Filters.css"; // Используем CSS модули для локализации стилей
 
 /**
@@ -72,6 +73,11 @@ const Filters = ({ GameListContext, List }) => {
     dto.Search.setSearch(event.target.value);
   };
 
+  const ResetDto = () =>{
+    //Грязный хак, но работает просто обновим страницу
+    location.reload();
+  }
+
   return (
     <div className="filters">
       <div className="input">
@@ -88,7 +94,7 @@ const Filters = ({ GameListContext, List }) => {
       <ProviderFrame title="Providers">
         {providers.map((provider) => {
           return (
-            <label key={uuidv4()} className="checkbox-as-button">
+            <label key={provider.id} className="checkbox-as-button">
               <input
                 type="checkbox"
                 onChange={(event) => toggleProvider(event, provider.id)}
@@ -104,7 +110,7 @@ const Filters = ({ GameListContext, List }) => {
 
       <ProviderFrame title="Game groups">
         {groups.map((group) => (
-          <label key={uuidv4()} className="checkbox-as-button">
+          <label key={group.id} className="checkbox-as-button">
             <input
               type="checkbox"
               onChange={(event) => toggleGroup(event, group.id)}
@@ -119,7 +125,7 @@ const Filters = ({ GameListContext, List }) => {
 
       <ProviderFrame title="Sorting">
         {sortingOptions.map((option) => (
-          <label key={uuidv4()} className="checkbox-as-button">
+          <label key={option} className="checkbox-as-button">
             <input
               type="checkbox"
               onChange={(event) => toggleSortingOptions(event, option)}
@@ -137,8 +143,9 @@ const Filters = ({ GameListContext, List }) => {
       </div>
 
       <div className="sectionBottom">
-        <span>Games amount: 3800</span>
-        <button className="resetButton">Reset</button>
+      <div className="games-amount">Games amount: {dto.GamesAmount.getGamesAmount}</div>
+
+        <button className="resetButton" onClick={()=>ResetDto()}>Reset</button>
       </div>
     </div>
   );

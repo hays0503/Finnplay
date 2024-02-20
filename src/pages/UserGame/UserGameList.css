@@ -505,7 +505,7 @@
 .save {
   font-size: var(--body-regular-large-size);
   font-family: var(--font-prompt);
-  color: var(--blacks-semi);
+  /* color: var(--blacks-semi); */
   text-align: left;
 }
 .button,

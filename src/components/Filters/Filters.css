@@ -105,8 +105,6 @@
   text-align: left;
 }
 
-/*  */
-
 .checkbox-as-button {
   display: inline-block;
   cursor: pointer;
@@ -134,5 +132,45 @@
 }
 
 .checkbox-as-button__input:checked + .checkbox-as-button__label {
-  background-color: var(--palette-yellow);
+  background-color: var(--palette-yellow) ;
+}
+
+.sectionBottom{
+  display: flex;
+  align-items: center;
+}
+.sectionBottom {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+
+.games-amount{
+  position: relative;
+  line-height: 120%;
+}
+
+.resetButton{
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-2xs) var(--padding-2xs) var(--padding-xs);
+  background-color: var(--blacks-light);
+  width: 120px;
+  border-radius: var(--br-9xs);
+  box-shadow: var(--shadows-main);
+  flex-direction: row;
+  justify-content: center;
+  box-sizing: border-box;
+  color: darkgrey;
+}
+
+.resetButton:hover {
+  background-color: var(--color-gainsboro);
+  color: black;
+}
+
+.resetButton:pressed {
+  background-color: var(--color-gainsboro);
+  color: black;
 }

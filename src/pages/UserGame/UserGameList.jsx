@@ -27,8 +27,14 @@ const UserGameList = () => {
 
   const [getSearch, setSearch] = useState("");
 
+  const [getGamesAmount, setGamesAmount] = useState(0);
+
   //Объект для передачи данных между компонентами
   const dto = {
+    GamesAmount:{
+      getGamesAmount,
+      setGamesAmount
+    },
     Row: {
       getRow,
       setRow,

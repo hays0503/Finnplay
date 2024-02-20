@@ -2,16 +2,31 @@ import React, { useMemo, useContext, useEffect, useState, useRef } from "react";
 import "./GameList.css";
 
 const GameList = ({ List, GameListContext }) => {
-  const [getSelectGames, setSelectGames] = useState([]);
+  const [getSelectGames, _setSelectGames] = useState([]);
+  
   const { games, groups, providers } = List;
   const defaultGames = useRef();
   const dto = useContext(GameListContext);
+
+  /**
+   * Sets the selected games and updates the games amount.
+   * 
+   * @param {Array} value - The array of selected games.
+   */
+  const setSelectGames = (value) => {
+    _setSelectGames(value);
+    dto.GamesAmount.setGamesAmount(value.length);
+  }
+
   const ClassNameMap = {
     4: "game-thumbnail-small",
     3: "game-thumbnail-medium",
     2: "game-thumbnail-large",
   };
 
+  /**
+   * Функция для отображения списка игр по умолчанию.
+   */
   const showDefault = () => {
     let GameId = [];
     // Перебираем выбранные группы и извлекаем из них игры
@@ -19,16 +34,12 @@ const GameList = ({ List, GameListContext }) => {
       GameId = [...GameId, ...element.games];
     });
     defaultGames.current = games.filter((game) => GameId.includes(game.id));
-    console.count("showDefault");
-    console.log(defaultGames.current);
     setSelectGames(defaultGames.current);
   };
 
-  useEffect(() => {
-    console.countReset("Mount GameList");
-    console.countReset("showDefault");
-    console.count("Mount GameList");
-  }, []);
+  
+
+
 
   useEffect(() => {
     //Выбранные фильтры
@@ -55,7 +66,6 @@ const GameList = ({ List, GameListContext }) => {
 
     // Если ничего не выбрано
     if (GameId.length === 0 && providerId.length === 0) {
-      console.log("Нечего не выбранно");
       showDefault();
       return; // Ранний выход, если ничего не выбрано
     }
@@ -80,6 +90,12 @@ const GameList = ({ List, GameListContext }) => {
       );
     }
 
+    /**
+     * Sorts two values in ascending order.
+     * @param {any} a - The first value to compare.
+     * @param {any} b - The second value to compare.
+     * @returns {number} - Returns -1 if a is less than b, 1 if a is greater than b, and 0 if a is equal to b.
+     */
     const sortfunc = (a, b) => {
       if (a < b) {
         return -1;
@@ -91,6 +107,12 @@ const GameList = ({ List, GameListContext }) => {
       return 0;
     };
 
+    /**
+     * Filters a list of items based on a substring match in the item name.
+     * @param {Array} list - The list of items to filter.
+     * @param {string} substring - The substring to search for in the item names.
+     * @returns {Array} - The filtered list of items.
+     */
     const searchBySubstring = (list, substring) => {
       return list.filter((item) =>
         item.name.toLowerCase().includes(substring.toLowerCase()),
@@ -98,34 +120,26 @@ const GameList = ({ List, GameListContext }) => {
     };
 
     if (dto.sortingOptions.getSortingOptions.includes("A-Z")) {
-      console.log("A-Z");
       SelectGames = SelectGames.sort((a, b) => sortfunc(a.name, b.name));
-      console.log("A-Z ", SelectGames);
     }
 
     if (dto.sortingOptions.getSortingOptions.includes("Z-A")) {
-      console.log("Z-A");
       SelectGames = SelectGames.sort((a, b) => sortfunc(b.name, a.name));
-      console.log("Z-A ", SelectGames);
     }
 
     if (dto.sortingOptions.getSortingOptions.includes("Newest")) {
-      console.log("Newest");
       SelectGames = SelectGames.sort((a, b) => sortfunc(a.date, b.date));
-      console.log("Newest ", SelectGames);
     }
 
     if (dto.Search.getSearch !== "") {
-      console.log("Search", dto.Search.getSearch);
       SelectGames = searchBySubstring(SelectGames, dto.Search.getSearch);
-      console.log("Search ", SelectGames);
-    }
-
-    console.log("Выбранные игры:", SelectGames);
+    }    
     setSelectGames(SelectGames);
   }, [dto]);
 
   const memoizedImages = useMemo(() => {
+    // Пересчет количества игр
+    
     return getSelectGames.map((element) => (
       <img
         key={element.id}

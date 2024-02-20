@@ -125,9 +125,12 @@
   font-size: 16px;
   line-height: 120%;
   font-family: Prompt;
-  color: #2b2b2b;
+  color: #000000;
   text-align: left;
 }
+
+
+
 .button-login,
 .login-form {
   display: flex;
