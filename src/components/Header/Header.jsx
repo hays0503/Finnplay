@@ -1,6 +1,19 @@
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Header.css";
+import { useEffect } from "react";
 
 const Header = () => {
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    // Проверка авторизации
+    if (!localStorage.getItem("login")) {
+      alert("Для доступа к этой странице необходимо авторизоваться");
+      return navigate("/");
+    }
+  }, [])
+
   return (
     <header className="header">
       <div className="logo2">
@@ -11,7 +24,9 @@ const Header = () => {
           src="/game-portfolio.svg"
         />
       </div>
-      <div className="player-1">Player 1</div>
+      <div className="player-1">
+        {localStorage.getItem("login") ? localStorage.getItem("login") : "Не авторизован пользователь"}
+      </div>
       <div className="icons-profile-16px-parent">
         <img
           className="icons-profile-16px"
@@ -19,7 +34,10 @@ const Header = () => {
           alt=""
           src="/icons--profile-16px.svg"
         />
-        <div className="logout">Logout</div>
+        <div className="logout"
+          onClick={() => { localStorage.clear(); return navigate("/"); }}>
+          Logout
+        </div>
       </div>
     </header>
   );

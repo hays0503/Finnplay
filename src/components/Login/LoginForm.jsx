@@ -1,11 +1,13 @@
 import { memo, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+
 import PasswordInput from "./PasswordInput"
 import "./LoginForm.css";
 import "./Loader.css";
 
 
 const LoginForm = memo(() => {
-
+  let navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const Login = useRef('');
@@ -38,8 +40,11 @@ const LoginForm = memo(() => {
       const data = await response.json(); // Парсинг JSON ответа в объект JavaScript
 
       if (response.ok && data.auth) {
+        localStorage.setItem('login', login);
         localStorage.setItem('authToken', data.token);
         alert('Авторизация успешна!'); // Уведомление об успешной авторизации
+        // Перенаправление на страницу списка игр
+        return navigate("/listgame");
         
       } else {
         console.error('Ошибка аутентификации:', data.message);
@@ -70,11 +75,11 @@ const LoginForm = memo(() => {
       <div className="section-main">
         <div className="input">
           <div className="inputs-text-field">
-            <div className="text-field-content">
+            <div className="text-field-contentLogin">
               <div className="sample-title">Login</div>
               <input
                 className="sample-text"
-                placeholder="player"
+                placeholder="Enter your login"
                 type="text"
                 ref={Login}
               />
@@ -83,7 +88,7 @@ const LoginForm = memo(() => {
         </div>
         <PasswordInput LockSymbol='*' Password={Password} />
       </div>
-      <button className="button button-loader" type="submit" disabled={loading}>
+      <button className="button-login button-loader" type="submit" disabled={loading}>
         {loading ? (
           <img src="/icons--spinner-14px.svg" className="spinner" alt="Loading" />
         ) : (
