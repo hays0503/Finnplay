@@ -9,6 +9,11 @@
 .label-range {
   display: flex;
 }
+@media screen and (max-width: 428px) {
+  .range-slider{
+    display: none !important;
+  }
+}
 
 .range-slider {
   flex-flow: column nowrap;

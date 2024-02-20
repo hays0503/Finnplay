@@ -9,7 +9,7 @@ const GameList = ({ List, GameListContext }) => {
   const ClassNameMap = {
     4: "game-thumbnail-small",
     3: "game-thumbnail-medium",
-    2: "game-thumbnail-medium",
+    2: "game-thumbnail-large",
   };
 
   const showDefault = () => {
@@ -143,7 +143,7 @@ const GameList = ({ List, GameListContext }) => {
     //row = 4  calc(100%/1) 5-4
     <section
       className="games"
-      style={{ maxWidth: `calc(100%/${4 - dto.Row.getRow})` }}
+      style={{ maxWidth: `100%` }}
     >
       {memoizedImages}
     </section>
