@@ -6,9 +6,9 @@
   font-weight: 400;
 }
 
-html, body {
+html,
+body {
   height: 100%;
-
 }
 
 body {
@@ -40,21 +40,21 @@ body {
   --tech-links: #3f53be;
 
   /* Gaps */
-  --gap-21xl: 40px;
-  --gap-xl: 20px;
-  --gap-base: 16px;
   --gap-11xs: 2px;
-  --gap-xs: 12px;
-  --gap-56xl: 75px;
-  --gap-23xl: 42px;
-  --gap-3xs: 10px;
-  --gap-mini: 15px;
-  --gap-4xs: 9px;
-  --gap-22xl: 41px;
   --gap-5xs: 8px;
-  --gap-13xl: 32px;
+  --gap-4xs: 9px;
+  --gap-3xs: 10px;
+  --gap-xs: 12px;
+  --gap-mini: 15px;
+  --gap-base: 16px;
+  --gap-xl: 20px;
   --gap-5xl: 24px;
   --gap-12xl: 31px;
+  --gap-13xl: 32px;
+  --gap-21xl: 40px;
+  --gap-22xl: 41px;
+  --gap-23xl: 42px;
+  --gap-56xl: 75px;
 
   /* Paddings */
   --padding-312xl: 331px;

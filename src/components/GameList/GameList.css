@@ -1,11 +1,11 @@
-.game-thumbnail-small{
+.game-thumbnail-small {
   height: 141px;
   width: 196px;
   position: relative;
   border-radius: var(--br-5xs);
   object-fit: cover;
 }
-.game-thumbnail-medium{
+.game-thumbnail-medium {
   height: 191px;
   width: 268px;
   position: relative;
@@ -13,7 +13,7 @@
   object-fit: cover;
 }
 
-.game-thumbnail-large{
+.game-thumbnail-large {
   height: 241px;
   width: 340px;
   position: relative;

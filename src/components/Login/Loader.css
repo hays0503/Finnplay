@@ -1,19 +1,22 @@
-  .spinner {
-    animation: spin 1s linear infinite;
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
   }
-  
-  /* Показать `.loader` когда загрузка активна */
-  .button-loader:disabled .loader {
-    display: inline-block;
-  }
-  
-  /* Скрыть текст кнопки когда загрузка активна */
-  .button-loader:disabled .save {
-    display: none;
-  }
-  
+}
+
+/* Показать `.loader` когда загрузка активна */
+.button-loader:disabled .loader {
+  display: inline-block;
+}
+
+/* Скрыть текст кнопки когда загрузка активна */
+.button-loader:disabled .save {
+  display: none;
+}

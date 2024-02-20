@@ -1,9 +1,7 @@
-
 .range-slider * {
   margin: 0;
   padding: 0;
   border: 0;
-  
 }
 
 .range-slider,
@@ -32,7 +30,9 @@
 
 .range-slider input[type="range"] {
   background-color: transparent;
-  font: 1em/1.5 "Roboto", sans-serif;
+  font:
+    1em/1.5 "Roboto",
+    sans-serif;
   display: block;
   padding: 0 0.1em;
   width: 100%;
@@ -48,7 +48,9 @@
 }
 
 .range-ticks {
-  font: 1em/1.5 "Roboto", sans-serif;
+  font:
+    1em/1.5 "Roboto",
+    sans-serif;
   justify-content: space-between;
   align-items: center;
   pointer-events: none;
@@ -84,7 +86,9 @@
 }
 
 .label-range {
-  font: 0.8em/1.5 "Roboto", sans-serif;
+  font:
+    0.8em/1.5 "Roboto",
+    sans-serif;
   margin-top: 1em;
   margin-bottom: 0.5em;
 }
@@ -92,4 +96,3 @@
 .active {
   background: #fdbc11;
 }
-
