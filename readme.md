@@ -20,4 +20,8 @@ npm run test:ui
 В консоли должно вывести приглашение с url для просмотра тестов 
 DEV  v1.3.1 E:/nodejs/Project/Finnplay/Finnplay-client
       UI started at http://localhost:51204/__vitest__/
+
+<img src="https://github.com/hays0503/Finnplay/blob/main/1.png?raw=true" alt="приглашение">
+
+<img src="https://github.com/hays0503/Finnplay/blob/main/2.png?raw=true" alt="тесты">
  
