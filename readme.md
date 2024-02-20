@@ -1,23 +1,29 @@
 
 ------------------------------------------
-Для запуска фронта выполнить скрипт 
+<h2>Для запуска фронта выполнить скрипт</h2> 
 ------------------------------------------
-cd .\Finnplay-client\
-npm install
-npx vite 
+<ol>
+  <li>cd .\Finnplay-client\</li>
+  <li>npm install</li>
+  <li>npx vite </li>
+</ol>
 ------------------------------------------
-Для запуска бэкенда выполнить скрипт 
+<h2>Для запуска бэкенда выполнить скрипт </h2>
 ------------------------------------------
-cd .\Finnplay-server\
-npm install
-npx nodemon index.js
+<ol>
+  <li>cd cd .\Finnplay-server\</li>
+  <li>npm install</li>
+  <li>npx nodemon index.js</li>
+</ol>
 ------------------------------------------
-Для запуска и проссмотра тестовых случаев выполнить скрипт
+<h2>Для запуска и проссмотра тестовых случаев выполнить скрипт</h2>
 ------------------------------------------
-cd .\Finnplay-client\
-npm install (если не была усстановлена до этого)
-npm run test:ui
-В консоли должно вывести приглашение с url для просмотра тестов 
+<ol>
+  <li>cd .\Finnplay-client\</li>
+  <li>npm install (если не была усстановлена до этого)</li>
+  <li>npm run test:ui</li>
+</ol>
+<i>В консоли должно вывести приглашение с url для просмотра тестов </i>
 DEV  v1.3.1 E:/nodejs/Project/Finnplay/Finnplay-client
       UI started at http://localhost:51204/__vitest__/
 
