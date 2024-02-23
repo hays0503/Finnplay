@@ -4,6 +4,29 @@ import sortfunc from "@utility/sortfunc.js";
 import searchBySubstring from "@utility/searchBySubstring.js";
 import "./GameList.css";
 
+const GameGallery = ({ getSelectGames, columns }) => {
+  // Используем inline стиль для динамического определения количества колонок
+  const gridStyle = {
+    display: 'grid',
+    gridTemplateColumns: `repeat(${columns}, 1fr)`, // Динамическое создание колонок
+    gap: '20px', // Отступы между элементами сетки
+  };
+
+  return (
+    <div style={gridStyle}>
+      {getSelectGames.map((element) => (
+        <img
+          key={element.id}
+          className="game-image"
+          loading="eager"
+          alt={element.name}
+          src={element.coverLarge}
+        />
+      ))}
+    </div>
+  );
+};
+
 const GameList = ({ List, GameListContext }) => {
   const [getSelectGames, _setSelectGames] = useState([]);
   
@@ -115,15 +138,7 @@ const GameList = ({ List, GameListContext }) => {
 
     // Пересчет количества игр
     
-    return getSelectGames.map((element) => (
-      <img
-        key={element.id}
-        className={ClassNameMap[dto.Row.getRow]}
-        loading="eager"
-        alt={element.name}
-        src={element.coverLarge}
-      />
-    ));
+    return <GameGallery getSelectGames={getSelectGames} columns={dto.Row.getRow} />
   }, [getSelectGames,dto.Row.getRow]); // Зависимости для пересчета useMemo
 
   return (
