@@ -21,7 +21,7 @@ const GameGallery = ({ getSelectGames, columns }) => {
   };
 
   return (
-    <div style={gridStyle}>
+    <div className="gamelist" style={gridStyle}>
       {getSelectGames.map((element) => {
         return <ImageWithFallback          
           key={element.id}

@@ -6,7 +6,6 @@ const  ImageWithFallback  =  (props) => {
 
   // Обработчик ошибки загрузки изображения
   const handleError = () => {
-    console.log(1)
     // Заменяем изображение на URL изображения-заглушки
     imgSrc.current.src = "/404.png";
   };

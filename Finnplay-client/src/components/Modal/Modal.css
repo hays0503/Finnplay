@@ -1,0 +1,78 @@
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 20px; /* Изменено с right на left */
+  background-color: white;
+  
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  max-width: 300px;
+  z-index: 1000; /* Убедитесь, что сообщение будет видно над другими элементами */    
+  }
+
+  .fade-out {
+    animation: slideInFromRight 3.5s ease-out; /* Обновлённое название анимации */
+  }
+
+  .fade-in{
+    animation: slideInFromLeft 3.5s ease-out; /* Обновлённое название анимации */
+  }
+
+  .toast-close {
+    width: 32px;
+    height: 32px;
+    padding: 10px;
+  }
+
+  .gradient-background {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    padding: 10px;
+    border-radius: 5%;
+    background: linear-gradient(260deg,#eb5a18,#4ed99c,#275588,#73428d,#755683);
+    /* color: linear-gradient(260deg,#584d47,#3c4742,#363b41,#4b4150,#2f2b31); */
+    color: aliceblue;
+    background-size: 300% 300%;
+    animation: gradient-animation 5s ease infinite;
+  }
+  
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+      color: 0% 50%;
+      
+    }
+    50% {
+      background-position: 100% 50%;
+      color: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+      color: 0% 50%;
+    }
+  }
+  
+  @keyframes slideInFromLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%); /* Изменено для выезда слева */
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInFromRight {
+    0% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-100%); /* Изменено для выезда слева */
+    }
+  }

@@ -5,7 +5,8 @@ import PasswordInput from "./PasswordInput";
 import "./LoginForm.css";
 import "./Loader.css";
 
-const LoginForm = () => {
+
+const LoginForm = (props) => {
   let navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -37,57 +38,65 @@ const LoginForm = () => {
       if (response.ok && data.auth) {
         localStorage.setItem("login", login);
         localStorage.setItem("authToken", data.token);
-        alert("Авторизация успешна!"); // Уведомление об успешной авторизации
+
+        props.setModal({
+          message: `Добро пожаловать ${login} ! `,
+          isOpen: true
+        })
         // Перенаправление на страницу списка игр
         return navigate("/listgame");
       } else {
-        alert("Ошибка аутентификации: " + data.message); // Уведомление об ошибке аутентификации
+        props.setModal({
+          message: `Ошибка аутентификации: ${data.message}`,
+          isOpen: true
+        })
       }
     } catch (error) {
-      alert("Произошла ошибка при выполнении запроса."); // Уведомление о проблеме с запросом
     } finally {
       setLoading(false); // Остановить анимацию загрузки в любом случае
     }
   };
 
   return (
-    <form className="login-form" onSubmit={handleLogin}>
-      <button className="logo">
-        <img className="logo-icon" alt="" src="/logo.svg" />
-        <img className="game-portfolio-icon" alt="" src="/game-portfolio.svg" />
-      </button>
-      <div className="section-main">
-        <div className="input">
-          <div className="inputs-text-field">
-            <div className="text-field-contentLogin">
-              <div className="sample-title">Login</div>
-              <input
-                className="sample-text"
-                placeholder="Enter your login"
-                type="text"
-                ref={Login}
-              />
+    <>
+      <form className="login-form" onSubmit={handleLogin}>
+        <button className="logo">
+          <img className="logo-icon" alt="" src="/logo.svg" />
+          <img className="game-portfolio-icon" alt="" src="/game-portfolio.svg" />
+        </button>
+        <div className="section-main">
+          <div className="input">
+            <div className="inputs-text-field">
+              <div className="text-field-contentLogin">
+                <div className="sample-title">Login</div>
+                <input
+                  className="sample-text"
+                  placeholder="Enter your login"
+                  type="text"
+                  ref={Login}
+                />
+              </div>
             </div>
           </div>
+          <PasswordInput LockSymbol="*" Password={Password} />
         </div>
-        <PasswordInput LockSymbol="*" Password={Password} />
-      </div>
-      <button
-        className="button-login button-loader"
-        type="submit"
-        disabled={loading}
-      >
-        {loading ? (
-          <img
-            src="/icons--spinner-14px.svg"
-            className="spinner"
-            alt="Loading"
-          />
-        ) : (
-          <div className="save">Login</div> // Текст кнопки
-        )}
-      </button>
-    </form>
+        <button
+          className="button-login button-loader"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? (
+            <img
+              src="/icons--spinner-14px.svg"
+              className="spinner"
+              alt="Loading"
+            />
+          ) : (
+            <div className="save">Login</div> // Текст кнопки
+          )}
+        </button>
+      </form>
+    </>
   );
 };
 

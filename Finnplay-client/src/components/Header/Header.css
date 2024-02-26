@@ -45,6 +45,7 @@
   gap: var(--gap-5xs);
 }
 
+
 .player {
   position: relative;
   line-height: 120%;
@@ -53,7 +54,7 @@
   max-width: 100%;
   white-space: nowrap;
   margin: auto;
-  padding-right: 50px;
+  padding-right: 20px;
 }
 .icons-profile-16px {
   height: 16px;
@@ -63,7 +64,7 @@
 .logout {
   position: relative;
   line-height: 120%;
-  padding-right: 50px;
+  padding-right: 20px;
 }
 .header,
 .icons-profile-16px-parent {
@@ -101,8 +102,12 @@
   }
 }
 
-@media screen and (min-width: 448px) {
+@media screen and (min-width: 429px) {
   .logo {
     width: 152px;
+  }
+
+  .burger{
+    display: none;
   }
 }

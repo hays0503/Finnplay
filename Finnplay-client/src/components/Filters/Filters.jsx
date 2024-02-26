@@ -82,7 +82,7 @@ const Filters = ({ GameListContext, List }) => {
 
   return (
     <div className="containerFilter">
-      <div style={{ display: `${isVisable ? "" : "none"}` }}>
+      <div style={{ display: `${!isVisable ? "inherit" : "none"}` }}>
         <div className="filters">
           <div className="input">
             <div className="inputs-text-field">

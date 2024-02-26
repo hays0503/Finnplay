@@ -6,6 +6,11 @@
 }
 
 @media screen and (max-width: 428px) {
+
+  .gamelist{
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
   .game-thumbnail-small {
     height: auto;
     width: 160px;

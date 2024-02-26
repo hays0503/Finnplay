@@ -5,10 +5,10 @@ import "@pages/Login/Login.css";
  * Renders the Login page.
  * @returns {JSX.Element} The Login component.
  */
-const Login = () => {
+const Login = (props) => {
   return (
     <div className="login">
-      <LoginForm />
+      <LoginForm {...props} />
     </div>
   );
 };
