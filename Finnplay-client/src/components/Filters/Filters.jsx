@@ -1,6 +1,7 @@
-import { useContext} from "react";
+import { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import RangeSlider from "@components/RangeSlider/RangeSlider";
+import debounce from "@utility/debounce";
 import "./Filters.css"; // Используем CSS модули для локализации стилей
 
 /**
@@ -32,11 +33,11 @@ ProviderFrame.propTypes = {
  * @returns {JSX.Element} The Filters component.
  */
 const Filters = ({ GameListContext, List }) => {
-
   const { providers, groups } = List;
   const sortingOptions = ["A-Z", "Z-A", "Newest"];
-
   const dto = useContext(GameListContext);
+  const debounced = debounce(dto.Search.setSearch, 1500);
+  const [isVisable, setIsVisable] = useState(false);
 
   const toggle = (event, id, getData, setData) => {
     //Удаляем или добавляем
@@ -63,87 +64,107 @@ const Filters = ({ GameListContext, List }) => {
       event,
       id,
       dto.sortingOptions.getSortingOptions,
-      dto.sortingOptions.setSortingOptions,
+      dto.sortingOptions.setSortingOptions
     );
   };
 
   const setSearch = (event) => {
-    dto.Search.setSearch(event.target.value);
+    //Делаем дебаунс для поиска
+    //Поиск будет происходить только после того как пользователь перестанет вводить
+    //console.log("debounce start");
+    debounced(event.target.value);
   };
 
-  const ResetDto = () =>{
+  const ResetDto = () => {
     //Грязный хак, но работает просто обновим страницу
     location.reload();
-  }
+  };
 
   return (
-    <div className="filters">
-      <div className="input">
-        <div className="inputs-text-field">
-          <input
-            className="text-field-content"
-            onChange={(event) => setSearch(event)}
-            placeholder="Search"
-            type="text"
-          />
-          <img className="searchIcon" alt="" src="/icons--search-16px.svg" />
+    <div className="containerFilter">
+      <div style={{ display: `${isVisable ? "" : "none"}` }}>
+        <div className="filters">
+          <div className="input">
+            <div className="inputs-text-field">
+              <input
+                className="text-field-content"
+                onChange={(event) => setSearch(event)}
+                placeholder="Search"
+                type="text"
+              />
+              <img
+                className="searchIcon"
+                alt=""
+                src="/icons--search-16px.svg"
+              />
+            </div>
+          </div>
+          <ProviderFrame title="Providers">
+            {providers.map((provider) => {
+              return (
+                <label key={provider.id} className="checkbox-as-button">
+                  <input
+                    type="checkbox"
+                    onChange={(event) => toggleProvider(event, provider.id)}
+                    className="checkbox-as-button__input"
+                  />
+                  <span className="providers checkbox-as-button__label">
+                    {provider.name}
+                  </span>
+                </label>
+              );
+            })}
+          </ProviderFrame>
+
+          <ProviderFrame title="Game groups">
+            {groups.map((group) => (
+              <label key={group.id} className="checkbox-as-button">
+                <input
+                  type="checkbox"
+                  onChange={(event) => toggleGroup(event, group.id)}
+                  className="checkbox-as-button__input"
+                />
+                <span className="providers checkbox-as-button__label">
+                  {group.name}
+                </span>
+              </label>
+            ))}
+          </ProviderFrame>
+
+          <ProviderFrame title="Sorting">
+            {sortingOptions.map((option) => (
+              <label key={option} className="checkbox-as-button">
+                <input
+                  type="checkbox"
+                  onChange={(event) => toggleSortingOptions(event, option)}
+                  className="checkbox-as-button__input"
+                />
+                <span className="providers checkbox-as-button__label">
+                  {option}
+                </span>
+              </label>
+            ))}
+          </ProviderFrame>
+
+          <div style={{ width: "100%" }}>
+            <RangeSlider GameListContext={GameListContext} />
+          </div>
+
+          <div className="sectionBottom">
+            <div className="games-amount">
+              Games amount: {dto.GamesAmount.getGamesAmount}
+            </div>
+
+            <button className="resetButton" onClick={() => ResetDto()}>
+              Reset
+            </button>
+          </div>
         </div>
       </div>
-      <ProviderFrame title="Providers">
-        {providers.map((provider) => {
-          return (
-            <label key={provider.id} className="checkbox-as-button">
-              <input
-                type="checkbox"
-                onChange={(event) => toggleProvider(event, provider.id)}
-                className="checkbox-as-button__input"
-              />
-              <span className="providers checkbox-as-button__label">
-                {provider.name}
-              </span>
-            </label>
-          );
-        })}
-      </ProviderFrame>
 
-      <ProviderFrame title="Game groups">
-        {groups.map((group) => (
-          <label key={group.id} className="checkbox-as-button">
-            <input
-              type="checkbox"
-              onChange={(event) => toggleGroup(event, group.id)}
-              className="checkbox-as-button__input"
-            />
-            <span className="providers checkbox-as-button__label">
-              {group.name}
-            </span>
-          </label>
-        ))}
-      </ProviderFrame>
-
-      <ProviderFrame title="Sorting">
-        {sortingOptions.map((option) => (
-          <label key={option} className="checkbox-as-button">
-            <input
-              type="checkbox"
-              onChange={(event) => toggleSortingOptions(event, option)}
-              className="checkbox-as-button__input"
-            />
-            <span className="providers checkbox-as-button__label">
-              {option}
-            </span>
-          </label>
-        ))}
-      </ProviderFrame>
-
-      <div style={{ width: "100%" }}>
-        <RangeSlider GameListContext={GameListContext} />
-      </div>
-
-      <div className="sectionBottom">
-      <div className="games-amount">Games amount: {dto.GamesAmount.getGamesAmount}</div>
-
-        <button className="resetButton" onClick={()=>ResetDto()}>Reset</button>
+      <div onClick={()=>setIsVisable(!isVisable)} className="burger">
+        <img src="./burger.svg" />
+        <span style={{ color: "#3F53BE" }}>Hide filters</span>
       </div>
     </div>
   );

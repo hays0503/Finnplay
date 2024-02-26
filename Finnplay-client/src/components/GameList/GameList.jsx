@@ -1,26 +1,59 @@
-import { useMemo, useContext, useEffect, useState, useRef,useCallback } from "react";
+import {
+  useMemo,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
+import ImageWithFallback from "@components/Image/ImageWithFallback";
 import PropTypes from "prop-types";
 import sortfunc from "@utility/sortfunc.js";
 import searchBySubstring from "@utility/searchBySubstring.js";
 import "./GameList.css";
 
+const GameGallery = ({ getSelectGames, columns }) => {
+  // Используем inline стиль для динамического определения количества колонок
+  const gridStyle = {
+    display: "grid",
+    gridTemplateColumns: `repeat(${columns}, 1fr)`, // Динамическое создание колонок
+    gap: "20px", // Отступы между элементами сетки
+  };
+
+  return (
+    <div style={gridStyle}>
+      {getSelectGames.map((element) => {
+        return <ImageWithFallback          
+          key={element.id}
+          className="game-image"
+          loading="eager"
+          alt={element.name}
+          src={element.coverLarge}
+        />;
+      })}
+    </div>
+  );
+};
+
 const GameList = ({ List, GameListContext }) => {
   const [getSelectGames, _setSelectGames] = useState([]);
-  
+
   const { games, groups } = List;
   const defaultGames = useRef();
   const dto = useContext(GameListContext);
 
   /**
    * Sets the selected games and updates the games amount.
-   * 
+   *
    * @param {Array} value - The array of selected games.
    */
-  const setSelectGames = useCallback((value) => {
-    _setSelectGames(value);
-    dto.GamesAmount.setGamesAmount(value.length);
-  }, [dto.GamesAmount]);
-
+  const setSelectGames = useCallback(
+    (value) => {
+      _setSelectGames(value);
+      dto.GamesAmount.setGamesAmount(value.length);
+    },
+    [dto.GamesAmount]
+  );
 
   /**
    * Функция для отображения списка игр по умолчанию.
@@ -32,10 +65,9 @@ const GameList = ({ List, GameListContext }) => {
       GameId = [...GameId, ...element.games];
     });
     defaultGames.current = games.filter((game) => GameId.includes(game.id));
-    setSelectGames(defaultGames.current);
+
   }, [games, groups, setSelectGames]);
 
-  
   useEffect(() => {
     //Выбранные фильтры
 
@@ -54,83 +86,75 @@ const GameList = ({ List, GameListContext }) => {
       }
     });
 
+    showDefault();
+
     // Создание массива для выбранных игр
-    let SelectGames = [];
+    let SelectGames = defaultGames.current;
+
+
 
     // Фильтруем игры по id, полученным из выбранных групп
 
-    // Если ничего не выбрано
-    if (GameId.length === 0 && providerId.length === 0) {
-      showDefault();
-      return; // Ранний выход, если ничего не выбрано
-    }
+
 
     // Если выбраны оба фильтра
     if (GameId.length > 0 && providerId.length > 0) {
       SelectGames = defaultGames.current.filter(
-        (game) =>
-          GameId.includes(game.id) && providerId.includes(game.provider),
+        (game) => GameId.includes(game.id) && providerId.includes(game.provider)
       );
     }
     // Если выбран только один фильтр: GameId
     else if (GameId.length > 0) {
       SelectGames = defaultGames.current.filter((game) =>
-        GameId.includes(game.id),
+        GameId.includes(game.id)
       );
     }
     // Если выбран только один фильтр: providerId
     else if (providerId.length > 0) {
       SelectGames = defaultGames.current.filter((game) =>
-        providerId.includes(game.provider),
+        providerId.includes(game.provider)
       );
     }
 
+    /*
+     * Поиск по подстроке в названии игры
+     */
+    if (dto.Search.getSearch !== "") {
+      // Если ничего не выбрано из фильров(Providers/Game groups/Sorting),
+      // то берем игры по умолчанию и ищем по ним
+      SelectGames = SelectGames.length > 0 ? SelectGames : defaultGames.current;
+      SelectGames = searchBySubstring(SelectGames, dto.Search.getSearch);
+    }
 
     if (dto.sortingOptions.getSortingOptions.includes("A-Z")) {
+      SelectGames = SelectGames.length > 0 ? SelectGames : defaultGames.current;
       SelectGames = SelectGames.sort((a, b) => sortfunc(a.name, b.name));
     }
 
     if (dto.sortingOptions.getSortingOptions.includes("Z-A")) {
+      SelectGames = SelectGames.length > 0 ? SelectGames : defaultGames.current;
       SelectGames = SelectGames.sort((a, b) => sortfunc(b.name, a.name));
     }
 
     if (dto.sortingOptions.getSortingOptions.includes("Newest")) {
-      SelectGames = SelectGames.sort((a, b) => sortfunc(a.date, b.date));
+      SelectGames = SelectGames.length > 0 ? SelectGames : defaultGames.current;
+      console.log("Newest",SelectGames);
+      SelectGames = SelectGames.sort((a, b) => sortfunc(b.date,a.date));
     }
 
-    if (dto.Search.getSearch !== "") {
-      SelectGames = searchBySubstring(SelectGames, dto.Search.getSearch);
-    }    
-    setSelectGames(SelectGames);
-  }, [dto,groups,setSelectGames,showDefault]);
+    setSelectGames(SelectGames);    
+
+  }, [dto,dto.sortingOptions.getSortingOptions, groups, setSelectGames, showDefault]);
 
   const memoizedImages = useMemo(() => {
-
-    const ClassNameMap = {
-      4: "game-thumbnail-small",
-      3: "game-thumbnail-medium",
-      2: "game-thumbnail-large",
-    };
-
-
     // Пересчет количества игр
-    
-    return getSelectGames.map((element) => (
-      <img
-        key={element.id}
-        className={ClassNameMap[dto.Row.getRow]}
-        loading="eager"
-        alt={element.name}
-        src={element.coverLarge}
-      />
-    ));
-  }, [getSelectGames,dto.Row.getRow]); // Зависимости для пересчета useMemo
+    return (
+      <GameGallery getSelectGames={getSelectGames} columns={dto.Row.getRow} />
+    );
+  }, [getSelectGames, dto.Row.getRow]); // Зависимости для пересчета useMemo
 
   return (
-    <section
-      className="games"
-      style={{ maxWidth: `100%` }}
-    >
+    <section className="games" style={{ maxWidth: `100%` }}>
       {memoizedImages}
     </section>
   );
@@ -140,6 +164,5 @@ GameList.propTypes = {
   List: PropTypes.object.isRequired,
   GameListContext: PropTypes.object.isRequired,
 };
-
 
 export default GameList;
